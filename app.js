@@ -106,7 +106,12 @@ else nl.innerHTML='<div class="loading">ప్రకటనలు లేవు</d
 const wg=document.getElementById('wallGrid');
 if(permanent.length)wg.innerHTML=permanent.map(n=>'<div class="wall-name">'+n+'</div>').join('');
 else wg.innerHTML='<div class="loading">దాతల పేర్లు త్వరలో...</div>';
-}catch(e){console.error(e);}
+}catch(e){
+console.warn('Sheet data unavailable:',e.message);
+document.getElementById('tickerContent').textContent='🙏 దాతల జాబితా త్వరలో...';
+document.getElementById('newsList').innerHTML='<div class="loading">ప్రకటనలు లేవు</div>';
+document.getElementById('wallGrid').innerHTML='<div class="loading">దాతల పేర్లు త్వరలో...</div>';
+}
 }
 
 // Subscribe form

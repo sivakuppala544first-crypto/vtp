@@ -68,10 +68,6 @@ h1,h2,.header p{font-family:'Tiro Telugu','Noto Sans Telugu',serif}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%}
 
 #videoDots{margin-top:6px!important}
-.wall-card{background:var(--sandstone)}
-.wall-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.wall-name{background:#fff;padding:8px;border-radius:4px;text-align:center;font-size:13px;border:1px solid var(--gold)}
-.wall-card .subtitle{font-size:11px;color:#555;text-align:center;margin-top:10px}
 .sub-card input{width:100%;padding:10px;margin-bottom:8px;border:1px solid #ccc;border-radius:6px;font-size:14px;font-family:inherit}
 .sub-btn{width:100%;padding:12px;background:var(--vermilion);color:#fff;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
 .footer{background:var(--deepred);color:var(--gold);text-align:center;padding:16px 8px;font-size:12px}

@@ -87,7 +87,7 @@ const SHEET_URL='https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
 async function loadData(){
 try{
 const r=await fetch(SHEET_URL);const rows=await r.json();
-const donors=[],news=[],permanent=[];
+const donors=[],news=[];
 rows.forEach(row=>{
 if(!row.category&&!row.name)return;
 const cat=(row.category||'').toString().trim().toLowerCase();
@@ -96,21 +96,16 @@ const msg=(row.message||'').toString().trim();
 if(!cat||!name)return;
 if(cat==='donor')donors.push(name+(msg?' - '+msg:''));
 else if(cat==='news')news.push(msg||name);
-else if(cat==='permanent')permanent.push(name);
 });
 if(donors.length)document.getElementById('tickerContent').textContent='🙏 '+donors.join('  🙏  ')+' 🙏';
 else document.getElementById('tickerContent').textContent='🙏 దాతల జాబితా త్వరలో...';
 const nl=document.getElementById('newsList');
 if(news.length)nl.innerHTML=news.map(n=>'<div class="news-item">📢 '+n+'</div>').join('');
 else nl.innerHTML='<div class="loading">ప్రకటనలు లేవు</div>';
-const wg=document.getElementById('wallGrid');
-if(permanent.length)wg.innerHTML=permanent.map(n=>'<div class="wall-name">'+n+'</div>').join('');
-else wg.innerHTML='<div class="loading">దాతల పేర్లు త్వరలో...</div>';
 }catch(e){
 console.warn('Sheet data unavailable:',e.message);
 document.getElementById('tickerContent').textContent='🙏 దాతల జాబితా త్వరలో...';
 document.getElementById('newsList').innerHTML='<div class="loading">ప్రకటనలు లేవు</div>';
-document.getElementById('wallGrid').innerHTML='<div class="loading">దాతల పేర్లు త్వరలో...</div>';
 }
 }
 

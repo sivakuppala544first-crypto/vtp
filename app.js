@@ -1,3 +1,18 @@
+// Font switcher
+function changeTempleFont(style){
+document.body.classList.remove('font-traditional','font-clean','font-beauty');
+document.body.classList.add('font-'+style);
+localStorage.setItem('templeFont',style);
+document.querySelectorAll('.font-chip').forEach(c=>c.classList.remove('active'));
+const activeChip=document.querySelector(`.font-chip[data-font="${style}"]`);
+if(activeChip)activeChip.classList.add('active');
+}
+const savedFont=localStorage.getItem('templeFont');
+if(savedFont)changeTempleFont(savedFont);
+document.querySelectorAll('.font-chip').forEach(chip=>{
+chip.addEventListener('click',()=>changeTempleFont(chip.dataset.font));
+});
+
 // Menu toggle
 const menuBtn=document.getElementById('menuBtn');
 const sideMenu=document.getElementById('sideMenu');
@@ -50,10 +65,22 @@ document.getElementById('samarpanBtn').addEventListener('click',()=>{
 window.location.href=`upi://pay?pa=templevillage@ybl&pn=SriKanthagiriTemple&am=${selectedAmount}&tn=${encodeURIComponent(selectedPurpose)}&cu=INR`;
 });
 
-// Video carousel nav
-const vTrack=document.getElementById('videoTrack');
-document.getElementById('vidPrev').addEventListener('click',()=>{vTrack.scrollBy({left:-vTrack.offsetWidth,behavior:'smooth'});});
-document.getElementById('vidNext').addEventListener('click',()=>{vTrack.scrollBy({left:vTrack.offsetWidth,behavior:'smooth'});});
+// --- Video Carousel Dots Sync Engine ---
+const videoTrackEl = document.getElementById('videoTrack');
+const videoDotsList = document.querySelectorAll('#videoDots .dot');
+
+function updateVideoDots() {
+    if (!videoTrackEl || !videoDotsList.length) return;
+    const index = Math.round(videoTrackEl.scrollLeft / videoTrackEl.offsetWidth);
+    videoDotsList.forEach((dot, i) => {
+        if (i === index) dot.classList.add('active');
+        else dot.classList.remove('active');
+    });
+}
+
+if (videoTrackEl) {
+    videoTrackEl.addEventListener('scroll', updateVideoDots);
+}
 
 // Google Sheet data
 const SHEET_URL='https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
@@ -97,3 +124,42 @@ msg.textContent='✅ విజయవంతంగా నమోదు అయిం
 });
 
 loadData();
+
+
+
+// Volunteer form
+document.getElementById('volunteerForm').addEventListener('submit',function(e){
+e.preventDefault();
+const name=document.getElementById('volName').value.trim();
+const phone=document.getElementById('volPhone').value.trim();
+const age=parseInt(document.getElementById('volAge').value,10);
+const msg=document.getElementById('volMsg');
+if(!name||!phone||!age){msg.textContent='❌ అన్ని వివరాలు నమోదు చేయండి';return;}
+if(isNaN(age)||age<16){msg.textContent='❌ కనీసం 16 సంవత్సరాల వయస్సు ఉండాలి';return;}
+msg.textContent='✅ మీ పేరు విజయవంతంగా నమోదైంది! శనివారం ఉదయం 7 గంటలకు ఆలయ ప్రాంగణానికి చేరుకోగలరు. జై శ్రీరామ్!';
+this.reset();
+});
+
+// Universal Touch Carousel Engine
+function linkTrackWithDots(trackSelector, dotSelector) {
+    const track = document.querySelector(trackSelector);
+    const dots = document.querySelectorAll(dotSelector);
+    if (!track || !dots.length) return;
+
+    track.addEventListener('scroll', () => {
+        const index = Math.round(track.scrollLeft / track.offsetWidth);
+        dots.forEach((dot, i) => {
+            if (i === index) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    });
+}
+
+// Ensure all dots setup initializes cleanly after context load
+setTimeout(() => {
+    if (typeof linkTrackWithDots === 'function') {
+        linkTrackWithDots('#historyTrack', '#storyDots .dot');
+        linkTrackWithDots('#brahmotsavam .bramho-track', '#bramhoDots .dot');
+    }
+    updateVideoDots();
+}, 500);

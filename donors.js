@@ -154,7 +154,7 @@ scroller.innerHTML=html;
 
 // Highlight current donor
 function highlightDonor(){
-if(userScrolling)return;
+if(!scroller||userScrolling)return;
 const rows=scroller.querySelectorAll('.donor-row');
 rows.forEach((row,i)=>{
 if(i===donorIndex){
@@ -168,12 +168,14 @@ donorIndex=(donorIndex+1)%donorDatabase.length;
 }
 
 // Pause auto-scroll when user touches/scrolls
+if(scroller){
 scroller.addEventListener('touchstart',()=>{userScrolling=true;clearTimeout(scrollTimeout);});
 scroller.addEventListener('scroll',()=>{
 userScrolling=true;
 clearTimeout(scrollTimeout);
 scrollTimeout=setTimeout(()=>{userScrolling=false;},4000);
 });
+}
 
 buildDonorList();
 highlightDonor();

@@ -101,3 +101,7 @@ h1,h2,.header p{font-family:'Tiro Telugu','Noto Sans Telugu',serif}
 #volunteerForm input:focus{outline:none;border-color:var(--gold)}
 .vol-submit-btn{width:100%;padding:12px;background:var(--deepred);border:1px solid var(--gold);color:var(--gold);font-size:14px;font-weight:bold;border-radius:6px;cursor:pointer;margin-top:6px;font-family:inherit}
 .vol-submit-btn:active{background:var(--vermilion);transform:scale(0.98)}
+/* Route Map */
+.map-responsive-wrapper{width:100%;border-radius:8px;overflow:hidden;margin-bottom:12px}
+.map-nav-btn{display:block;width:100%;padding:12px;background:var(--deepred);border:1px solid var(--gold);color:var(--gold);font-size:13px;font-weight:bold;border-radius:6px;text-align:center;text-decoration:none;margin-top:8px}
+.map-nav-btn:active{background:var(--vermilion);transform:scale(0.98)}

@@ -158,3 +158,14 @@ setTimeout(() => {
     }
     updateVideoDots();
 }, 500);
+
+// Night Mode Toggle
+const nightToggle=document.getElementById('nightToggle');
+const savedMode=localStorage.getItem('nightMode');
+if(savedMode==='on'){document.body.classList.add('dark-mode');nightToggle.textContent='☀️';}
+nightToggle.addEventListener('click',()=>{
+document.body.classList.toggle('dark-mode');
+const isNight=document.body.classList.contains('dark-mode');
+nightToggle.textContent=isNight?'☀️':'🌙';
+localStorage.setItem('nightMode',isNight?'on':'off');
+});
